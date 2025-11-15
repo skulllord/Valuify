@@ -2,7 +2,34 @@
 
 A premium, CRED-style personal finance app built with Flutter.
 
-## Features
+<div align="center">
+  <img src="https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
+  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+</div>
+
+---
+
+## 📱 Screenshots
+
+<div align="center">
+  <img src="screenshots/login.png" width="200" alt="Login Screen">
+  <img src="screenshots/dashboard.png" width="200" alt="Dashboard">
+  <img src="screenshots/transactions.png" width="200" alt="Transactions">
+  <img src="screenshots/budgets.png" width="200" alt="Budgets">
+</div>
+
+<div align="center">
+  <img src="screenshots/categories.png" width="200" alt="Categories">
+  <img src="screenshots/reports.png" width="200" alt="Reports">
+  <img src="screenshots/settings.png" width="200" alt="Settings">
+  <img src="screenshots/dark-mode.png" width="200" alt="Dark Mode">
+</div>
+
+---
+
+## ✨ Features
 
 - 🔐 Authentication (Email/Password + Google Sign-In)
 - 💰 Dashboard with animated balance cards
