@@ -1,0 +1,128 @@
+═══════════════════════════════════════════════════════════════
+    VALUIFY - FIREBASE SETUP CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+YOU ARE HERE → Firebase Console - Authentication Page ✅
+
+═══════════════════════════════════════════════════════════════
+STEP 1: AUTHENTICATION (5 minutes)
+═══════════════════════════════════════════════════════════════
+
+□ Click "Get started" button
+□ Enable "Email/Password" provider → Toggle ON → Save
+□ Enable "Google" provider → Toggle ON → Add support email → Save
+
+═══════════════════════════════════════════════════════════════
+STEP 2: FIRESTORE DATABASE (3 minutes)
+═══════════════════════════════════════════════════════════════
+
+□ Left sidebar → Build → Firestore Database
+□ Click "Create database"
+□ Select "Start in production mode" → Next
+□ Choose location (closest to you) → Enable
+□ Wait for creation (1-2 min)
+□ Click "Rules" tab → Replace with security rules → Publish
+
+SECURITY RULES TO PASTE:
+─────────────────────────────────────────────────────────────
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+  }
+}
+─────────────────────────────────────────────────────────────
+
+═══════════════════════════════════════════════════════════════
+STEP 3: STORAGE (2 minutes)
+═══════════════════════════════════════════════════════════════
+
+□ Left sidebar → Build → Storage
+□ Click "Get started" → Next → Select location → Done
+□ Click "Rules" tab → Replace with security rules → Publish
+
+SECURITY RULES TO PASTE:
+─────────────────────────────────────────────────────────────
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /receipts/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+─────────────────────────────────────────────────────────────
+
+═══════════════════════════════════════════════════════════════
+STEP 4: ADD ANDROID APP (3 minutes) ⚠️ CRITICAL
+═══════════════════════════════════════════════════════════════
+
+□ Click ⚙️ gear icon → Project settings
+□ Scroll to "Your apps" → Click Android icon
+□ Package name: com.valuify.app
+□ App nickname: Valuify
+□ Click "Register app"
+□ Click "Download google-services.json" → Save to Downloads
+□ Click Next → Next → Continue to console
+
+□ MOVE FILE:
+  From: Downloads\google-services.json
+  To:   D:\Valuify\android\app\google-services.json
+
+═══════════════════════════════════════════════════════════════
+STEP 5: ADD WEB APP (2 minutes) - Optional
+═══════════════════════════════════════════════════════════════
+
+□ Project settings → Your apps → Click Web icon (</>)
+□ App nickname: Valuify Web
+□ Register app → Continue to console
+
+═══════════════════════════════════════════════════════════════
+STEP 6: RUN THE APP! (2 minutes)
+═══════════════════════════════════════════════════════════════
+
+Open PowerShell in D:\Valuify and run:
+
+□ flutter clean
+□ flutter pub get
+□ flutter run -d web-server --web-port=8080
+
+Then open Brave browser and go to: http://localhost:8080
+
+═══════════════════════════════════════════════════════════════
+STEP 7: TEST THE APP
+═══════════════════════════════════════════════════════════════
+
+□ App opens in Chrome
+□ Click "Sign Up"
+□ Enter name, email, password
+□ Click "Create Account"
+□ See dashboard with balance card
+
+═══════════════════════════════════════════════════════════════
+🎉 SUCCESS! YOUR APP IS RUNNING!
+═══════════════════════════════════════════════════════════════
+
+TOTAL TIME: ~15-20 minutes
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Problem: "google-services.json not found"
+Solution: Check file is at D:\Valuify\android\app\google-services.json
+
+Problem: "Firebase not initialized"
+Solution: Run flutter clean && flutter pub get
+
+Problem: Can't sign up
+Solution: Check Authentication is enabled in Firebase Console
+
+═══════════════════════════════════════════════════════════════
+
+Need help? Check STEP_BY_STEP_SETUP.md for detailed instructions!
