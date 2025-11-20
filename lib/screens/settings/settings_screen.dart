@@ -55,7 +55,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       if (!canAuthenticate) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Biometric authentication not available')),
+            const SnackBar(
+                content: Text('Biometric authentication not available')),
           );
         }
         return;
@@ -110,7 +111,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   radius: 40,
                   backgroundColor: Theme.of(context).primaryColor,
                   child: Text(
-                    (user?.displayName?.substring(0, 1) ?? user?.email?.substring(0, 1) ?? 'U')
+                    (user?.displayName?.substring(0, 1) ??
+                            user?.email?.substring(0, 1) ??
+                            'U')
                         .toUpperCase(),
                     style: const TextStyle(fontSize: 32, color: Colors.white),
                   ),
@@ -118,7 +121,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 const SizedBox(height: AppConstants.spacing12),
                 Text(
                   user?.displayName ?? 'User',
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   user?.email ?? '',
@@ -140,7 +144,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               value: themeMode,
               underline: const SizedBox(),
               items: const [
-                DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
+                DropdownMenuItem(
+                    value: ThemeMode.system, child: Text('System')),
                 DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
                 DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
               ],
@@ -202,7 +207,29 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             icon: Icons.logout,
             title: 'Sign Out',
             onTap: () async {
-              await AuthService().signOut();
+              // Show confirmation dialog
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Sign Out'),
+                  content: const Text('Are you sure you want to sign out?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Cancel'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Sign Out'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                await AuthService().signOut();
+                // Navigation will be handled automatically by authStateProvider
+              }
             },
           ),
         ],
