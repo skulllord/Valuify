@@ -13,6 +13,7 @@ A premium, CRED-style personal finance app built with Flutter.
 
 ## 📱 Screenshots
 
+### Core Features
 <div align="center">
   <img src="screenshots/login.png" width="200" alt="Login Screen">
   <img src="screenshots/dashboard.png" width="200" alt="Dashboard">
@@ -20,6 +21,15 @@ A premium, CRED-style personal finance app built with Flutter.
   <img src="screenshots/budgets.png" width="200" alt="Budgets">
 </div>
 
+### 💰 UPI Wallet & Payments (NEW!)
+<div align="center">
+  <img src="screenshots/wallet-main.png" width="200" alt="Wallet Dashboard">
+  <img src="screenshots/wallet-send-money.png" width="200" alt="Send Money">
+  <img src="screenshots/wallet-request-money.png" width="200" alt="Request Money">
+  <img src="screenshots/wallet-history.png" width="200" alt="Transaction History">
+</div>
+
+### More Features
 <div align="center">
   <img src="screenshots/categories.png" width="200" alt="Categories">
   <img src="screenshots/reports.png" width="200" alt="Reports">
@@ -38,6 +48,11 @@ A premium, CRED-style personal finance app built with Flutter.
 - 🏷️ Custom categories with icons and colors
 - 💵 Monthly budgets with progress tracking
 - 📈 Reports (CSV export, PDF generation)
+- 💸 **UPI Wallet & Mock Payments** (NEW!)
+  - Mock wallet with starting balance
+  - Send/receive money via UPI
+  - Transaction history
+  - Real-time balance updates
 - ⚙️ Settings (currency, theme, biometric lock)
 
 ## Setup Instructions

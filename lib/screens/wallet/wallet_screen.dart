@@ -204,7 +204,8 @@ class WalletScreen extends ConsumerWidget {
                   icon: Icons.add_circle_outline,
                   label: 'Add Money to Wallet',
                   color: AppColors.primaryLight,
-                  onTap: () => _showAddMoneyDialog(context, ref, user!.uid),
+                  onTap: () => _showAddMoneyDialog(
+                      context, ref, user!.uid, currencySymbol),
                 ),
                 const SizedBox(height: AppConstants.spacing24),
 
@@ -257,7 +258,8 @@ class WalletScreen extends ConsumerWidget {
     );
   }
 
-  void _showAddMoneyDialog(BuildContext context, WidgetRef ref, String userId) {
+  void _showAddMoneyDialog(BuildContext context, WidgetRef ref, String userId,
+      String currencySymbol) {
     final controller = TextEditingController();
 
     showDialog(

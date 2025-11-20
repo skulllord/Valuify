@@ -42,6 +42,8 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
       final user = ref.read(currentUserProvider);
       if (user == null) throw Exception('User not logged in');
 
+      final currencySymbol = ref.read(currencySymbolProvider);
+
       final amount = double.parse(_amountController.text);
       final upiId = _upiIdController.text.trim();
       final name = _nameController.text.trim();
@@ -69,7 +71,7 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
 
       if (mounted) {
         if (result['success']) {
-          _showSuccessDialog(result);
+          _showSuccessDialog(result, currencySymbol);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -90,7 +92,7 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
     }
   }
 
-  void _showSuccessDialog(Map<String, dynamic> result) {
+  void _showSuccessDialog(Map<String, dynamic> result, String currencySymbol) {
     showDialog(
       context: context,
       barrierDismissible: false,

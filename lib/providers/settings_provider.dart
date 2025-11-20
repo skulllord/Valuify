@@ -4,8 +4,9 @@ import '../services/firestore_service.dart';
 
 final userSettingsProvider = StreamProvider<Map<String, dynamic>>((ref) {
   final user = ref.watch(currentUserProvider);
-  if (user == null)
+  if (user == null) {
     return Stream.value({'currency': 'USD', 'currencySymbol': '\$'});
+  }
 
   return ref.watch(firestoreServiceProvider).getSettings(user.uid);
 });
