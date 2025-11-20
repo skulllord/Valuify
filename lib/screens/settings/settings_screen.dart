@@ -220,15 +220,45 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.pop(context, true),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
                       child: const Text('Sign Out'),
                     ),
                   ],
                 ),
               );
 
-              if (confirm == true) {
-                await AuthService().signOut();
-                // Navigation will be handled automatically by authStateProvider
+              if (confirm == true && context.mounted) {
+                try {
+                  // Show loading
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+
+                  // Sign out
+                  await ref.read(authServiceProvider).signOut();
+
+                  // Close loading dialog
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+
+                  // Force refresh by invalidating auth state
+                  ref.invalidate(authStateProvider);
+                } catch (e) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop(); // Close loading
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error signing out: $e')),
+                    );
+                  }
+                }
               }
             },
           ),
