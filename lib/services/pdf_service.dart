@@ -39,7 +39,7 @@ class PdfService {
           pw.SizedBox(height: 20),
           pw.Text(
             Helpers.formatMonth(month),
-            style: pw.TextStyle(fontSize: 18, color: PdfColors.grey700),
+            style: const pw.TextStyle(fontSize: 18, color: PdfColors.grey700),
           ),
           pw.SizedBox(height: 30),
           pw.Container(

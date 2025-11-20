@@ -13,6 +13,8 @@ import 'screens/categories/categories_screen.dart';
 import 'screens/budgets/budgets_screen.dart';
 import 'screens/reports/reports_screen.dart';
 import 'screens/settings/settings_screen.dart';
+import 'screens/wallet/wallet_screen.dart';
+import 'services/wallet_service.dart';
 import 'utils/colors.dart';
 
 void main() async {
@@ -116,10 +118,13 @@ class AuthWrapper extends ConsumerWidget {
         if (user == null) {
           return const LoginScreen();
         }
-        
+
         // Initialize default categories for new users
         FirestoreService().initializeDefaultCategories(user.uid);
-        
+
+        // Initialize wallet for new users
+        WalletService().initializeWallet(user.uid, user.email ?? '');
+
         return const MainScreen();
       },
       loading: () => const Scaffold(
@@ -144,6 +149,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = const [
     DashboardScreen(),
+    WalletScreen(),
     TransactionsScreen(),
     CategoriesScreen(),
     BudgetsScreen(),
@@ -167,6 +173,11 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Dashboard',
           ),
           NavigationDestination(
+            icon: Icon(Icons.account_balance_wallet_outlined),
+            selectedIcon: Icon(Icons.account_balance_wallet),
+            label: 'Wallet',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.receipt_outlined),
             selectedIcon: Icon(Icons.receipt),
             label: 'Transactions',
@@ -177,8 +188,8 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Categories',
           ),
           NavigationDestination(
-            icon: Icon(Icons.account_balance_wallet_outlined),
-            selectedIcon: Icon(Icons.account_balance_wallet),
+            icon: Icon(Icons.pie_chart_outlined),
+            selectedIcon: Icon(Icons.pie_chart),
             label: 'Budgets',
           ),
           NavigationDestination(

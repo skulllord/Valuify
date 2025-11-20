@@ -47,7 +47,7 @@ class Helpers {
     if (dateOnly == yesterday) return 'Yesterday';
     
     final difference = today.difference(dateOnly).inDays;
-    if (difference < 7) return '${difference} days ago';
+    if (difference < 7) return '$difference days ago';
     
     return formatDate(date);
   }
