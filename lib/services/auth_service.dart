@@ -104,7 +104,12 @@ class AuthService {
 
   // Sign out
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
+    try {
+      await _googleSignIn.signOut();
+    } catch (e) {
+      // Ignore Google Sign-In errors on web
+      print('Google sign out error (can be ignored): $e');
+    }
     await _auth.signOut();
   }
 
