@@ -242,7 +242,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   );
 
                   // Sign out
-                  await ref.read(authServiceProvider).signOut();
+                  await AuthService().signOut();
 
                   // Close loading dialog
                   if (context.mounted) {
