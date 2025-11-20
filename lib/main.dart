@@ -188,8 +188,8 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Categories',
           ),
           NavigationDestination(
-            icon: Icon(Icons.pie_chart_outlined),
-            selectedIcon: Icon(Icons.pie_chart),
+            icon: Icon(Icons.account_balance_outlined),
+            selectedIcon: Icon(Icons.account_balance),
             label: 'Budgets',
           ),
           NavigationDestination(

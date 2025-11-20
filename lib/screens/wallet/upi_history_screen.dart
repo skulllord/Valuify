@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/wallet_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../utils/helpers.dart';
 import '../../utils/constants.dart';
 
@@ -10,6 +11,7 @@ class UpiHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final upiTransactionsAsync = ref.watch(upiTransactionsProvider);
+    final currencySymbol = ref.watch(currencySymbolProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -101,7 +103,7 @@ class UpiHistoryScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              '${isSent ? '-' : '+'}₹${transaction.amount.toStringAsFixed(2)}',
+                              '${isSent ? '-' : '+'}$currencySymbol${transaction.amount.toStringAsFixed(2)}',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/wallet_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../services/wallet_service.dart';
 import '../../utils/constants.dart';
 import '../../utils/colors.dart';
@@ -119,7 +120,7 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              '₹${_amountController.text}',
+              '$currencySymbol${_amountController.text}',
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -168,6 +169,7 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final walletAsync = ref.watch(walletProvider);
+    final currencySymbol = ref.watch(currencySymbolProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -197,7 +199,7 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
                         children: [
                           const Text('Available Balance'),
                           Text(
-                            '₹${wallet.balance.toStringAsFixed(2)}',
+                            '$currencySymbol${wallet.balance.toStringAsFixed(2)}',
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -262,8 +264,8 @@ class _UpiPaymentScreenState extends ConsumerState<UpiPaymentScreen> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   labelText: 'Amount',
-                  prefixText: '₹ ',
-                  prefixIcon: const Icon(Icons.currency_rupee),
+                  prefixText: '$currencySymbol ',
+                  prefixIcon: const Icon(Icons.attach_money),
                   border: OutlineInputBorder(
                     borderRadius:
                         BorderRadius.circular(AppConstants.radiusMedium),

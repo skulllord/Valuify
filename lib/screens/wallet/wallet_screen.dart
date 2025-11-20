@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/wallet_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../services/wallet_service.dart';
 import '../../utils/helpers.dart';
 import '../../utils/constants.dart';
@@ -17,6 +18,7 @@ class WalletScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final walletAsync = ref.watch(walletProvider);
     final user = ref.watch(currentUserProvider);
+    final currencySymbol = ref.watch(currencySymbolProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -104,7 +106,7 @@ class WalletScreen extends ConsumerWidget {
                         curve: Curves.easeOutCubic,
                         builder: (context, value, child) {
                           return Text(
-                            Helpers.formatCurrency(value, '₹'),
+                            Helpers.formatCurrency(value, currencySymbol),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -265,9 +267,9 @@ class WalletScreen extends ConsumerWidget {
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: 'Amount',
-            prefixText: '₹ ',
+            prefixText: '$currencySymbol ',
           ),
         ),
         actions: [
@@ -285,7 +287,7 @@ class WalletScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            '₹${amount.toStringAsFixed(2)} added to wallet')),
+                            '$currencySymbol${amount.toStringAsFixed(2)} added to wallet')),
                   );
                 }
               }
